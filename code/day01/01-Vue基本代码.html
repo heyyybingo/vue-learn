@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <!-- 导入本地vue包 -->
+  <script src="../node_modules/vue/dist/vue.js"></script>
+</head>
+
+<body>
+  <div id="app">
+    <!-- VUE 实例控制的元素区域，就是v -->
+    <!-- 解决刷新表达式闪烁的问题 -->
+    <p v-cloak>{{msg}}</p>
+    <!-- 默认v-text没有闪烁问题 -->
+    <h4 v-text="msg">111</h4>
+
+    <div v-html="msg2">{{msg2}}</div>
+
+    <!-- v-bind是用于绑定属性的指令 -->
+    <!--  v-bind: 可以简写为一个冒号:-->
+    <input type="button" value="按钮" v-bind:title="mytitle">
+    <input type="button" value="按钮" :title="mytitle">
+
+
+    <!-- v-on 用来绑定事件 -->
+    <!-- 缩写是@ -->
+    <input type="button" value='按钮2' v-on:click='myalert'>
+    <input type="button" value="按钮3" @click="show">
+  </div>
+  <script>
+    //创建一个Vue实例
+    //我们new的是一个vm对象，vm调度者
+    var vm = new Vue({
+      el: '#app', //表示我们new这个Vue实例，实际控制的区域
+      data: {
+        //该属性中控制el所要用到的数据
+        msg: 'helloworld',
+        msg2: '<h1>sbsbsbsbsbss<h1>',
+        mytitle: 'mytitle'
+      },
+      methods: {
+        myalert() {
+          alert('helloword')
+        },
+        show() {
+          alert('show')
+        }
+      }
+
+    })
+  </script>
+</body>
+
+
+</html>

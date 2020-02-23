@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="../node_modules/vue/dist/vue.js"></script>
+</head>
+
+<body>
+  <div id="app">
+
+  </div>
+  <div id="app2">
+
+  </div>
+  <script>
+    var vm = new Vue({
+      el: '#app',
+      data: {
+
+      },
+      methods: {
+
+      }
+    })
+
+    var vm2 = new Vue({
+      el: '#app2',
+      data: {
+
+      },
+      methods: {
+
+      },
+      filters: {
+        //定义私有过滤器，两个条件[过滤器名称 和 处理函数]
+        //过滤器优先调用私有过滤器
+        dateFormat: function () {
+
+        }
+      }
+    })
+  </script>
+</body>
+
+
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="../node_modules/vue/dist/vue.js"></script>
+</head>
+
+<body>
+  <div id="app">
+
+    <!-- 使用v-for循环 -->
+    <p v-for="item in list">{{item}}</p>
+
+    <!-- 获取索引值 -->
+    <p v-for="(item,index) in list">{{item}} 索引值:{{index}}</p>
+    <!-- 在遍历对象身上的键值对 -->
+    <p v-for="(val,key) in user">key:{{key}}----val:{{val}}</p>
+
+    <!-- 如果迭代数字，数字会从1开始 -->
+    <p v-for="count in 10">{{count}}</p>
+  </div>
+
+  <script>
+    var vm = new Vue({
+      el: '#app',
+      data: {
+        user: {
+          id: 1,
+          name: 'heyyybingo',
+          gender: "男"
+
+        },
+        list: [1, 2, 3, 4, 5, 6]
+      },
+      methods: {
+
+      }
+    })
+  </script>
+</body>
+
+
+</html>

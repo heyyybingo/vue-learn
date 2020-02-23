@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="../node_modules/vue/dist/vue.js"></script>
+</head>
+
+<body>
+  <div id="app">
+    <p>{{msg | msgfilter}}</p>
+  </div>
+
+  <script>
+    //定义一个全局的Vue过滤器
+    Vue.filter('msgfilter', function (msg) {
+      var reg = /[傻逼|枪毙]/g
+      return msg.replace(reg, '*')
+    })
+    var vm = new Vue({
+      el: '#app',
+      data: {
+        msg: '曾经，有一个人，他是个大傻逼，建议枪毙'
+      },
+      methods: {
+
+      }
+    })
+  </script>
+</body>
+
+
+</html>

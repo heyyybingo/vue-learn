@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="../node_modules/vue/dist/vue.js"></script>
+</head>
+
+<body>
+  <div id="app">
+    <!-- 一个对就是无序键值对的集合 -->
+    <h1 :style="{color:'red',fontWeight:5000}">这是一个h1</h1>
+
+    <h1 :style="styOBJ">这是一个h1</h1>
+  </div>
+  <script>
+    var vm = new Vue({
+      el: '#app',
+      data: {
+        styOBJ: { color: 'red', fontWeight: 5000 }
+      },
+      methods: {
+
+      }
+    })
+  </script>
+</body>
+
+
+</html>

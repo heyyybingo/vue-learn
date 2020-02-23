@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="../node_modules/vue/dist/vue.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+</head>
+
+<body>
+  <div id="app">
+    <div class="panel panel-primary">
+      <div class="panel-heading">
+        <h3 class="panel-title">品牌管理</h3>
+      </div>
+      <div class="panel-body form-inline">
+        <label>
+          ID:
+          <input type="number" v-model="user.id" required>
+        </label>
+        <label>
+          Name:
+          <input type="text" v-model="user.name" required @keyup.enter="push" @keyup.f2="push">
+        </label>
+        <input type="button" class="btn btn-primary" value="插入" @click="push">
+        <label>
+          搜索:
+          <input type="text" class="form-control" v-model="keywords" v-focus v-color>
+        </label>
+      </div>
+    </div>
+    <table class="table table-bordered table-hover table-striped">
+      <thead>
+        <tr>
+          <td>ID</td>
+          <td>品牌名称</td>
+          <td>时间</td>
+          <td>操作</td>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="item in search(keywords)" :key="item.id">
+          <td v-text="item.id"></td>
+          <td v-text="item.name"></td>
+          <td>{{item.ctime | dateFormat}}</td>
+          <td>
+            <input type="button" value="删除" @click="del(item.id)">
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <script>
+    Vue.filter('dateFormat', function (dateStr) {
+      console.log('format')
+      var dt = new Date(dateStr)
+      var year = dt.getFullYear()
+      var month = dt.getMonth() + 1
+      var day = dt.getDate()
+
+      console.log(dt)
+      //return '$(year)-$(month)-$(day)'
+      return year + '-' + month + '-' + day
+    })
+    //自定义全局键盘码
+    Vue.config.keyCodes.f2 = 113
+
+    //自定义全局指令
+    //参数1：指令名称 定义时不需要加v-前缀，调用时需要
+    //参数2：是一个对象，这个对象上，有许多钩子函数
+    Vue.directive('focus', {
+      bind: function (el) {
+        //当指令绑定到元素上时，就会执行
+        //在每一个函数中，第一个参数永远是el，这是一个原生的js对象（DOM）
+        //在元素港绑定时，还没有插入到DOM中，调用focus没有作用
+        //el.focus()
+      },
+      inserted: function (el) {
+        //当元素插入DOM时候，会执行
+        el.focus()
+      },
+      updated: function () {
+        //当vNode更新的时候，会执行updated
+      }
+
+    })
+
+    Vue.directive('color', {
+      bind: function (el) {
+        //当指令绑定到元素上时，就会执行
+        //在每一个函数中，第一个参数永远是el，这是一个原生的js对象（DOM）
+        //在元素港绑定时，还没有插入到DOM中，调用focus没有作用
+        //el.focus()
+        el.style.color = 'red'
+      },
+      inserted: function (el) {
+        //当元素插入DOM时候，会执行
+
+      },
+      updated: function () {
+        //当vNode更新的时候，会执行updated
+      }
+
+    })
+
+    var vm = new Vue({
+      el: '#app',
+      data: {
+        keywords: '',
+        user: {},
+        list: [
+          { id: 1, name: '奔驰', ctime: new Date() },
+          { id: 2, name: '宝马', ctime: new Date() },
+          { id: 3, name: '丰田', ctime: new Date() }
+
+        ]
+      },
+      methods: {
+        push() {
+          this.user.ctime = new Date()
+          this.list.push(this.user)
+          this.user = {}
+        },
+        del(id) {
+          // this.list.some((item,i)=>{
+          //     if(item.id==id){
+          //         this.list.splice(i,1)
+          //         //在some方法中如果返回true，则会终止后续循环
+          //         return true
+          //     }
+          // })
+
+          var index = this.list.findIndex(item => {
+            if (item.id === id) {
+              return true
+            }
+          })
+          this.list.splice(index, 1)
+        },
+        search(keywords) {
+          //   var nList = []
+          //   this.list.forEach(item => {
+          //     if (item.name.indexOf(keywords) !== -1) {
+          //       nList.push(item)
+          //     }
+          //   });
+
+
+          var nList = this.list.filter(item => {
+            if (item.name.includes(keywords)) { return true }
+          })
+          return nList
+        }
+      }
+    })
+  </script>
+</body>
+
+
+</html>

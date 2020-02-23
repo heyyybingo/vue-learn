@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="../node_modules/vue/dist/vue.js"></script>
+  <style>
+    #app>div {
+      background-color: skyblue;
+      height: 200px
+    }
+
+    div {
+      background-color: red;
+      height: 100px;
+
+    }
+  </style>
+</head>
+
+<body>
+  <div id="app">
+    <!-- .capture 执行捕获事件-->
+    <div class="inner" @click.capture="innerDiv">
+      <!-- .stop 阻止冒泡 -->
+      <input type="button" value="阻止冒泡" @click.stop="innerBtn">
+      <!-- .prevent 阻止默认行为 -->
+      <a href="http://www.baidu.com" value="阻止默认行为" @click.prevent="innerBtn">链接</a>
+      <!-- .once 触发一次-->
+      <input type="button" value="按钮" @click.once="innerBtn">
+      <input type="button" value="按钮" @click.stop="innerBtn">
+
+      <!-- .self 点击自己才触发事件 -->
+      <div @click.self="innerinnerDiv">
+        <input type="button" value="按钮" @click.stop="innerBtn">
+      </div>
+    </div>
+  </div>
+
+  <script>
+    var vm = new Vue({
+      el: '#app',
+      data: {
+
+      },
+      methods: {
+        innerDiv() {
+          console.log('div事件')
+        },
+        innerinnerDiv() {
+          console.log('iiiiidiv事件')
+        },
+        innerBtn() {
+          console.log('按钮事件')
+        }
+      }
+    })
+  </script>
+</body>
+
+</html>

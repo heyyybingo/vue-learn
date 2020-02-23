@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="../node_modules/vue/dist/vue.js"></script>
+</head>
+
+<body>
+  <div id="app">
+    <input type="button" value="按钮1" @click="go">
+    <input type="button" value="按钮2" @click="stop">
+    <h1 v-text="msg"></h1>
+  </div>
+
+  <script>
+    var vm = new Vue({
+      el: '#app',
+      data: {
+        msg: 'helloword',
+        IntervalId: null //即使
+      },
+      methods: {
+        go() {
+          //获取头部字符
+          clearInterval(this.InteralId)
+          this.InteralId = setInterval(() => {
+            var start = this.msg.substring(0, 1)
+            //获取后面所有字符
+            var end = this.msg.substring(1)
+            this.msg = end + start
+          }, 100)
+
+        },
+        stop() {
+          clearInterval(this.InteralId)
+        }
+      }
+    })
+  </script>
+</body>
+
+</html>

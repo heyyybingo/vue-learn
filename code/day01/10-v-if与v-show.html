@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="../node_modules/vue/dist/vue.js"></script>
+</head>
+
+<body>
+  <div id="app">
+    <!-- 每次都会重新删除或者创建元素 -->
+    <!-- 有较高的切换性能消耗 -->
+    <h3 v-if="flag">一个v-if控制的元素</h3>
+    <!--不会进行dom的删除和创建操作，只是切换为display:none -->
+    <!-- 有较高的初始渲染消耗 -->
+    <h3 v-show="flag">一个v-show控制的元素</h3>
+  </div>
+
+  <script>
+    var vm = new Vue({
+      el: '#app',
+      data: {
+        flag: true
+      },
+      methods: {
+
+      }
+    })
+  </script>
+</body>
+
+
+</html>
