@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="../node_modules/vue/dist/vue.js"></script>
+</head>
+
+<body>
+  <div id="app">
+    <my-com1></my-com1>
+    <my-com2></my-com2>
+    <my-com3></my-com3>
+
+    <template id="tmp1">
+      <div>
+        <h4>这是一个Vue.extend创建的第三种方式<h4></h4>
+      </div>
+
+    </template>
+
+  </div>
+
+  <script>
+    //第一种方式
+    //使用Vue.extend来创建全局的Vue组件
+    var com1 = Vue.extend({
+      template: '<h3>这是一个Vue.extend创建的组件<h3>'
+    })
+    //Vue.component('组件名称'，创建出来的模板对象)
+    //如果采用驼峰命名，需要改称小写并用‘-’隔开
+    Vue.component('myCom1', com1)
+    //也可以直接
+    Vue.component('myCom2', Vue.extend({
+      template: '<h4>这是一个Vue.extend创建的第二个组件<h4>'
+    }))
+
+    //第二种方式
+    //如果有多个标签存在，模板元素需要用唯一的元素包裹起来，
+    Vue.component('myCom3', {
+      template: '<h4>这是一个Vue.extend创建的第二种方式<h4>'
+    })
+
+    //第三种方式
+    Vue.component('myCom4', {
+      template: '#tmp1'
+    })
+    var vm = new Vue({
+      el: '#app',
+      data: {
+
+      },
+      methods: {
+
+      }
+    })
+  </script>
+</body>
+
+
+</html>

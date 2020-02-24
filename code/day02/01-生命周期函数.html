@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="../node_modules/vue/dist/vue.js"></script>
+</head>
+
+<body>
+  <div id="app">
+    <h3 id="h3"> {{msg}}</h3>
+    <input type="button" value="修改msg" @click="msg='nnn'">
+  </div>
+
+  <script>
+    var vm = new Vue({
+      el: '#app',
+      data: {
+        msg: 'ok'
+      },
+      methods: {
+        show() {
+          console.log('执行了show方法')
+        }
+      },
+
+      //创建期间
+      beforeCreate() {
+        //这是我们遇到的第一个生命周期函数，表示实例完全被创建出来之前，会执行它
+        //console.log(this.msg) undefined
+        //this.show()   not a function
+        //在这个生命周期函数时，data以及methods还没有被初始化
+      },
+      created() {
+        //第二个生命周期函数
+        //在created中，data和methods以及被初始化
+        //如果要调用method以及操作data数据，最早只能在created中操作
+        console.log(this.msg)
+        this.show()
+      },
+      beforeMount() {
+        //Vue开始编译模板，把Vue代码中的指令进行执行，最终在内存中生成一个编译好的最终模板字符串
+        //最后，把这个模板字符串，渲染为内存中的DOM
+        //并没有把模板挂载到真正的页面中去
+        console.log('beforemounted ' + document.getElementById('h3').innerText)
+        //页面中的元素还没有被替换，只是之前的字符串，输出会时原本的字符串内容
+      },
+      mounted() {
+        //表示内存中的模板，已经渲染到了页面中，用户以及可以看到渲染好的页面
+        console.log('mounted ' + document.getElementById('h3').innerText)
+        //注意,mounted表示实例以及创建完全了，没有其他操作的话，实例不会变化
+      },
+
+      //运行期间
+      beforeUpdate() {
+        //表示我们的数据被更新，但页面没有同步
+        console.log('beforeUpdated \n' + '页面:' + document.getElementById('h3').innerText)
+        console.log('数据:' + this.msg)
+        //元素内容并没有改变，但是msg改变了
+      },
+      updated() {
+        //表示更新后的数据渲染完毕，数据和页面保持同步
+        console.log('updated \n' + '页面:' + document.getElementById('h3').innerText)
+        console.log('数据:' + this.msg)
+
+      },
+
+      //销毁阶段
+      beforeDestroy() {
+
+      },
+
+      destroyed() {
+
+      }
+
+    })
+  </script>
+</body>
+
+
+</html>

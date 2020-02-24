@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="../node_modules/vue/dist/vue.js"></script>
+
+  <style>
+    .v-enter,
+    .v-leave-to {
+      opacity: 0;
+      transform: translateX(150px);
+    }
+
+    .v-enter-active,
+    .v-leave-active {
+      transition: all 1s ease;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="app">
+    <a href="" @click.prevent="compName='login'">登录</a>
+    <a href="" @click.prevent="compName='regist'">注册</a>
+
+    <!-- Vue提供了component用来展示对应的组件 -->
+    <!-- :is属性,用来指定要展示的组件的名称 -->
+
+    <transition mode="out-in">
+      <component :is="compName"></component>
+    </transition>
+
+
+
+  </div>
+
+  <script>
+    var vm = new Vue({
+      el: '#app',
+      data: {
+        compName: ''
+      },
+      methods: {
+
+      },
+      components: {
+        login: {
+          template: "<h1>登录组件</h1>"
+        },
+        regist: {
+          template: "<h1>注册组件</h1>"
+        }
+      }
+    })
+  </script>
+</body>
+
+
+</html>

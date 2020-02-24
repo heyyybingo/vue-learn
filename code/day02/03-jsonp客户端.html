@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="../node_modules/vue/dist/vue.js"></script>
+  <script src="../node_modules/vue-resource/dist/vue-resource.js"></script>
+</head>
+
+<body>
+  <div id="app">
+
+  </div>
+
+  <script>
+    function showInfo() {
+      console.log('show()')
+    }
+    var vm = new Vue({
+      el: '#app',
+      data: {
+
+      },
+      methods: {
+
+      }
+    })
+  </script>
+
+  <script src="http://127.0.0.1:3000/getscript?callback=showInfo"></script>
+</body>
+
+
+</html>

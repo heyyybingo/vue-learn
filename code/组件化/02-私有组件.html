@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="../node_modules/vue/dist/vue.js"></script>
+</head>
+
+<body>
+  <div id="app">
+
+    <login></login>
+    <template id="tmp">
+      <h2>这也是一个私有组件</h2>
+
+    </template>
+
+  </div>
+
+  <script>
+    var vm = new Vue({
+      el: '#app',
+      data: {
+        msg: '这是一个外部中的数据'
+      },
+      methods: {
+
+      },
+      components: {
+        login: {
+          template: "<h1 v-text='msg'>这是一个私有的login组件<h1>",
+          // 组件可以有自己的data数据
+          //组件的data必须是一个方法，必须返回一个对象
+          data: function () {
+            return {
+              msg: '这是一个组件中的数据'
+            }
+          }
+        },
+        regist: {
+          template: "tmp"
+        }
+      }
+    })
+  </script>
+</body>
+
+
+</html>
