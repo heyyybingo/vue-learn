@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="../node_modules/vue/dist/vue.js"></script>
+  <script src="../node_modules/vue-router/dist/vue-router.js"></script>
+
+  <style>
+    .header {
+      background-color: orange;
+      height: 80px;
+    }
+
+    .container {
+      background-color: green;
+      display: flex;
+      height: 400px
+    }
+
+    h1 {
+
+      margin: 0
+    }
+
+    .left {
+      background-color: red;
+      flex: 2
+    }
+
+    .main {
+      background-color: black;
+      flex: 8
+    }
+  </style>
+</head>
+
+<body>
+  <div id="app">
+    <router-view></router-view>
+    <div class="container">
+      <router-view name="left"></router-view>
+      <router-view name="main"></router-view>
+    </div>
+  </div>
+
+  <script>
+    var header = {
+      template: "<h1 class='header'>header头部区域</h1>"
+    }
+    var left = {
+      template: "<h1 class='left'>left侧边栏区域</h1>"
+    }
+    var mainbox = {
+      template: "<h1 class='main'>main主体区域</h1>"
+    }
+    var router = new VueRouter({
+      routes: [
+        // { path: '/', component: header }, //不可取
+        // { path: '/left', component: left },
+        // { path: '/main', component: mainbox }
+        {
+          path: '/',
+          components: {
+            default: header,
+            left: left,
+            main: mainbox
+          }
+        }
+      ]
+    })
+    var vm = new Vue({
+      el: '#app',
+      data: {
+
+      },
+      methods: {
+
+      },
+      router
+    })
+  </script>
+</body>
+
+
+</html>

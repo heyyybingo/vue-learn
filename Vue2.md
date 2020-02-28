@@ -265,3 +265,46 @@
     </transition>
 ```
 
+## 父组件给子组件传值
+
+```html
+<body>
+  <div id="app">
+    <!-- 父组件，可以在引用子组件的时候，
+        通过属性绑定的形式，把需要传递的数据传递给子组件 -->
+    <!-- 子组件需要定义 -->
+
+    <com1 :parentmsg="msg"></com1>
+  </div>
+
+  <script>
+    var vm = new Vue({
+      el: '#app',
+      data: {
+        msg: '123 父组件中的数据'
+      },
+      methods: {
+
+      },
+      components: {
+        //子组件默认无法访问到副组件的data数据
+        //
+        com1: {
+          // 子组件需要在该数组中定义
+            //props中的数据都是只读的
+          props: ['parentmsg'],
+          template: '<h1>这是子组件 --- {{parentmsg}}<h1>'
+
+        }
+      }
+    })
+  </script>
+</body>
+```
+
+子组件给父组件传值
+
+```
+
+```
+

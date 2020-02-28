@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="../node_modules/vue/dist/vue.js"></script>
+  <script src="../node_modules/vue-router/dist/vue-router.js"></script>
+  <style>
+    .router-link-active,
+    .myactive {
+
+      color: red;
+      font-weight: 200;
+      font-style: italic;
+    }
+
+    .v-enter,
+    .v-leave-to {
+      opacity: 0;
+      transform: translate(80px);
+    }
+
+    .v-enter-active,
+    .v-leave-active {
+      transition: all 1s ease
+    }
+  </style>
+</head>
+
+<body>
+  <div id="app">
+    <!-- 默认渲染为一个a标签 -->
+    <router-link to="/login" tag="span">登陆</router-link>
+    <router-link to="/register">注册</router-link>
+    <!-- vue提供的标签 -->
+    <!-- 专门用来当作占位符，用来将匹配的路由规则，加入router-view中 -->
+    <transition mode="out-in">
+      <router-view></router-view>
+    </transition>
+
+
+
+  </div>
+
+  <script>
+    var login = {
+      template: "<h1>这是一个登陆组件</h1>"
+    }
+    var register = {
+      template: "<h1>这是一个注册组件</h1>"
+    }
+    //创建一个路由对象，当导入vue-router包之后，在window的全局对象中，就有一个路由的结构函数
+    //VueRouter,在新建对象时，可以为构造函数传递配置对象
+    var routerObj = new VueRouter({
+      //route//表示路由匹配规则的意思
+      //每个路由规则，都是一个对象，包括
+      //path，路由链接地址
+      //component表示对应的组件,直接把引用模板对象
+      routes: [
+        { path: '/', redirect: '/login' }, //重定向，与Node中的redirect不同
+        { path: '/login', component: login },
+        { path: '/register', component: register }
+
+      ],
+      linkActiveClass: 'myactive' //将router-link-active类名改成自定义
+    })
+    var vm = new Vue({
+      el: '#app',
+      data: {
+
+      },
+      methods: {
+
+      },
+      //将路由规则对象，注册到vm对象中
+      router: routerObj
+    })
+  </script>
+</body>
+
+
+</html>

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="../node_modules/vue/dist/vue.js"></script>
+  <script src="../node_modules/vue-router/dist/vue-router.js"></script>
+</head>
+
+<body>
+  <div id="app">
+    <router-link to="/account">account</router-link>
+    <router-view></router-view>
+
+  </div>
+  <template id="tmp1">
+    <div>
+      <h1>这是一个account组件</h1>
+      <router-link to="/login">登陆</router-link>
+      <router-link to="/register">注册</router-link>
+      <router-view></router-view>
+    </div>
+  </template>
+  <script>
+    var account = {
+      template: '#tmp1'
+    }
+    var login = {
+      template: "<h1>这是一个登陆组件</h1>"
+    }
+    var register = {
+      template: "<h1>这是一个注册组件</h1>"
+    }
+    var router = new VueRouter({
+      routes: [
+      {
+        path: '/account',
+        component: account,
+        //使用children进行嵌套时，不要在前面加/，否则永远以根路径开始请求，不利于用户去理解URL地址
+        children: [
+          { path: 'login', component: login },
+          { path: 'register', component: register }
+        ]
+      }]
+    })
+    var vm = new Vue({
+      el: '#app',
+      data: {
+
+      },
+      methods: {
+
+      },
+      router
+    })
+  </script>
+</body>
+
+
+</html>

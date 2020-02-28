@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="../node_modules/vue/dist/vue.js"></script>
+</head>
+
+<body>
+  <div id="app">
+    <login ref="mylogin"></login>
+    <p ref="mydom">这是DOM元素</p>
+    <input type="button" @click="getElement1">
+    <input type="button" @click="getElement2">
+  </div>
+
+  <script>
+    var login = {
+      template: "<h1>这是一个login组件</h1>"
+
+    }
+    var vm = new Vue({
+      el: '#app',
+      data: {
+        msg: "my msg"
+      },
+      methods: {
+        getElement1() {
+          console.log(this.$refs.mydom.innerText)
+        },
+        getElement2() {
+          console.log(this.$refs.mylogin)
+        }
+      },
+      components: {
+        login
+      }
+    })
+  </script>
+</body>
+
+
+</html>

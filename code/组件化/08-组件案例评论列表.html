@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="../node_modules/vue/dist/vue.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+</head>
+
+<body>
+  <div id="app">
+
+
+
+    <ul class="list-group">
+      <li class=list-group-item v-for="item in list" :key="item.id">
+        <span class="badge">评论人:{{item.user}}</span>
+        {{item.content}}
+      </li>
+    </ul>
+    <template id="tmp1">
+      <div>
+        <div class="form-group">
+          <label>评论人:</label>
+          <input type="text" class="form-control" v-model="user">
+        </div>
+
+        <div class="form-group">
+          <label>内容:</label>
+          <textarea type="text" class="form-control" v-model="content"></textarea>
+        </div>
+
+        <div class="form-group">
+          <input type="button" value="发表评论" class="btn btn-primary" @click="postComment">
+        </div>
+      </div>
+    </template>
+  </div>
+
+  <script>
+    var vm = new Vue({
+      el: '#app',
+      data: {
+        user: "",
+        content: "",
+        list: [
+          { id: Date.now(), user: 'heyyybingo', content: 'helloword' },
+          { id: Date.now(), user: 'heyyy', content: 'hellowordsadasda' },
+          { id: Date.now(), user: 'heyyybi', content: 'hellowordsdasdad' }
+        ]
+      },
+
+      methods: {
+        postComment() {
+          //存放到localstorage
+          //在保存之前，要先获取最新的对象
+          var lis = localStorage.getItem('cmts');
+          console.log(lis)
+          if (lis === null) {
+            comment = { id: Date.now(), user: this.user, content: this.content }
+            this.list.push(comment)
+            localStorage.setItem('cmts', JSON.stringify(this.list))
+            return
+          } else {
+            //化成数组对象
+            lis = JSON.parse(lis)
+            comment = { id: Date.now(), user: this.user, content: this.content }
+            lis.push(comment)
+
+            localStorage.setItem('cmts', JSON.stringify(lis))
+            this.list = lis
+          }
+
+        }
+      },
+      created() {
+
+        var lis = localStorage.getItem('cmts');
+        console.log('created' + lis)
+        if (lis === null) {
+          return
+        } else {
+          this.list = JSON.parse(lis)
+        }
+      },
+      components: {
+        commentbox: {
+          template: '#tmp1'
+        }
+      }
+    })
+  </script>
+</body>
+
+
+</html>

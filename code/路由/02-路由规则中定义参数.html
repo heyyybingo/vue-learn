@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="../node_modules/vue/dist/vue.js"></script>
+  <script src="../node_modules/vue-router/dist/vue-router.js"></script>
+</head>
+
+<body>
+  <div id="app">
+    <router-link to="login/12/caoqiubin">登陆</router-link>
+    <router-link to="register">注册</router-link>
+    <router-view></router-view>
+  </div>
+
+  <script>
+    var login = {
+      template: "<h1>这是一个登陆组件---{{this.$route.params.id}}--{{this.$route.params.name}}</h1>",
+      data() {
+        return {
+          msg: '123'
+        }
+      },
+      created() {
+        console.log(this.$route)
+      }
+    }
+    var register = {
+      template: "<h1>这是一个注册组件</h1>"
+    }
+    var router = new VueRouter({
+      routes: [
+        { path: '/', redirect: '/login' }, //重定向，与Node中的redirect不同
+        { path: '/login/:id/:name', component: login },
+        { path: '/register', component: register }
+      ]
+    })
+    var vm = new Vue({
+      el: '#app',
+      data: {
+
+      },
+      methods: {
+
+      },
+      router
+    })
+  </script>
+</body>
+
+
+</html>

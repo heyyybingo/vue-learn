@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="../node_modules/vue/dist/vue.js"></script>
+</head>
+
+<body>
+  <div id="app">
+    <input type="button" value="父组件的按钮" @click="show">
+    <!-- 父组件向子组件传递方法 -->
+    <!-- 这种方法有问题 -->
+    <template id="tmp1">
+
+      <h1>子组件1{{msg}}</h1>
+      <input type="button" value="子组件1的按钮" @click="show('hello')">
+      <input type="button" value="子组件1的按钮" @click="myclick">
+
+    </template>
+
+    <template>
+      <div>
+        <h1>子组件2</h1>
+        <input type="button" value="子组件2的按钮">
+      </div>
+    </template>
+  </div>
+
+  <script>
+    var com2 = {
+      template: '#tmp2',
+      methods: {
+        myclick() {
+          console.log('子组件222click')
+        }
+      }
+    }
+    var vm = new Vue({
+      el: '#app',
+      data: {
+        msg: '123 父组件中的数据'
+      },
+      methods: {
+        show(data) {
+          console.log('父组件的show方法 ' + data)
+        }
+      },
+      components: {
+        //子组件默认无法访问到副组件的data数据
+        //
+
+        com1: {
+
+          template: '#tmp1',
+          data() {
+            return {
+              msg: '子组件1'
+            }
+          },
+          methods: {
+            myclick() {
+              console.log('子组件click')
+            }
+          }
+
+        },
+        com2
+      }
+    })
+  </script>
+</body>
+
+
+</html>
